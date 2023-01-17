@@ -6,6 +6,9 @@
 #include <QtDebug>
 #include <QString>
 
+#include "jsonparser.h"
+#include "jsonformatter.h"
+
 class QSocketRunnable : public QRunnable
 {
 public:
