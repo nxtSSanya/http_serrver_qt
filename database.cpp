@@ -1,16 +1,23 @@
 #include "database.h"
 #include "QSqlError"
 
-database::database(QString hostname, QString db_name, QString username, QString password)
+database::database()
 {
-    m_db = QSqlDatabase::addDatabase("QSQLITE"); //no MariaDB in qt
+    m_db = QSqlDatabase::addDatabase("QSQLITE"); // errors with MariaDB and qt
     m_db.setDatabaseName("./qwe.db");
     if(m_db.open()){
         qDebug() << "Opened successfully";
     }
     else{
-        qDebug() << "Error";
+        qDebug() << "Error while opening";
     }
+}
+
+database::database(database &other)
+{
+    m_db = other.m_db;
+    m_query = other.m_query;
+    m_error = other.m_error;
 }
 
 /*
@@ -28,7 +35,6 @@ CREATE TABLE IF NOT EXISTS TICKETS (
 bool database::processQuery(QString query)
 {
     m_query = new QSqlQuery(m_db);
-    qDebug() << query;
     if(m_query->exec(query)){
         qDebug("ok");
         return true;
@@ -46,7 +52,7 @@ QString database::error()
     return m_error;
 }
 
-std::vector<QString> database::getIdArray()
+std::vector<QString> database::get_id_of_tickets()
 {
     std::vector<QString> id_values;
     processQuery("select ticket_id from TICKETS;");
@@ -57,26 +63,22 @@ std::vector<QString> database::getIdArray()
     return id_values;
 }
 
-std::pair<QString, QString> database::findById(QString ticket_id)
+std::pair<QString, QString> database::find_ticket_by_id(QString ticket_id)
 {
-    std::pair<QString, QString> ticket_status;
+    std::pair<QString, QString> ticketID_status;
     processQuery("select ticket_id, ticket_status from TICKETS where ticket_id = \"" + ticket_id + "\";");
     while(m_query->next()){
-        ticket_status.first = m_query->value(0).toString();
-        ticket_status.second = m_query->value(1).toString();
+        ticketID_status.first = m_query->value(0).toString();
+        ticketID_status.second = m_query->value(1).toString();
     }
-    return ticket_status;
+    return ticketID_status;
 }
 
-QString database::sellTicket(QString ticket_id)
+QString database::sell_ticket(QString ticket_id)
 {
     QString result = "";
-    std::pair<QString, QString> found_ticket = findById(ticket_id);
-    if(found_ticket.first.isEmpty() && found_ticket.second.isEmpty()) {
-        result = "Ticket not found";
-    }
-    else if(processQuery("update TICKETS set ticket_status = \"sold\" where ticket_id = \"" + ticket_id + "\";")) {
-        result = "Success sold";
+    if(processQuery("update TICKETS set ticket_status = \"sold\" where ticket_id = \"" + ticket_id + "\";")) {
+        result = "success sold";
     }
     else {
         result = m_query->lastError().text();
@@ -84,6 +86,25 @@ QString database::sellTicket(QString ticket_id)
     return result;
 }
 
+std::pair<QString, QString> database::pay_for_ticket(QString ticket_id)
+{
+    std::pair<QString, QString> result_status_winsize = {"", ""};
+
+    if(processQuery("update TICKETS set ticket_status = \"paid\" where ticket_id = \"" + ticket_id + "\";") &&
+       processQuery("select win_size from TICKETS where ticket_id = \"" + ticket_id + "\";")) {
+
+        m_query->first();
+        result_status_winsize.first = "success paid";
+        result_status_winsize.second = m_query->value(0).toString();
+    }
+    else {
+        result_status_winsize.first = m_query->lastError().text();
+        result_status_winsize.second = "";
+    }
+
+    return result_status_winsize;
+
+}
 database::~database()
 {
     m_db.close();

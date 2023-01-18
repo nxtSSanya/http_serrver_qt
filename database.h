@@ -9,12 +9,14 @@
 class database
 {
 public:
-    database(QString hostname, QString db_name, QString username, QString password);
+    database();
+    database(database& other);
     bool processQuery(QString query);
     QString error();
-    std::vector<QString> getIdArray();
-    std::pair<QString, QString> findById(QString ticket_id);
-    QString sellTicket(QString ticket_id);
+    std::vector<QString> get_id_of_tickets();
+    std::pair<QString, QString> find_ticket_by_id(QString ticket_id);
+    QString sell_ticket(QString ticket_id);
+    std::pair<QString, QString> pay_for_ticket(QString ticket_id);
     ~database();
 private:
     QSqlDatabase m_db;

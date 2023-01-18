@@ -16,8 +16,8 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
         database.cpp \
+        httphelper.cpp \
         jsonformatter.cpp \
-        jsonparser.cpp \
         main.cpp \
         qsocketrunnable.cpp \
         qthreadpoolserver.cpp
@@ -29,7 +29,8 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 HEADERS += \
     database.h \
+    httphelper.h \
+    idhelper.h \
     jsonformatter.h \
-    jsonparser.h \
     qsocketrunnable.h \
     qthreadpoolserver.h
