@@ -1,11 +1,11 @@
 #include <QCoreApplication>
-#include "qthreadpoolserver.h"
-#include "database.h"
+#include "QThreadPoolServer.h"
+#include "Database.h"
 
 int main(int argc, char *argv[])
 {
     QCoreApplication a(argc, argv);
-    qthreadpoolserver server;
+    QThreadPoolServer server;
 
     return a.exec();
 }
