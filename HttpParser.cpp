@@ -1,6 +1,6 @@
 #include "HttpParser.h"
 
-
+#include <iostream>
 
 HttpParser::HttpParser(const QString& data_in)
 {
@@ -15,6 +15,8 @@ HttpParser::HttpParser(const QString& data_in)
     m_http_request_type = head.first();
     m_http_page_request = head[1];
     m_ticket_id = IDhelper::getIDTicket(head[1]);
+
+    //std::cout << data_in.toStdString() << " " << m_http_request_type.toStdString() << " " << m_ticket_id.toStdString() << std::endl;
 
 }
 

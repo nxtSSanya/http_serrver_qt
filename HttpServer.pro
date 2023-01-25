@@ -36,4 +36,5 @@ HEADERS += \
     IDHelper.h \
     JsonFormatter.h \
     QSocketRunnable.h \
-    QThreadPoolServer.h
+    QThreadPoolServer.h \
+    SignalHandlers.h

@@ -13,7 +13,7 @@
 class QSocketRunnable : public QRunnable
 {
 public:
-    QSocketRunnable(const int& handle);
+    QSocketRunnable(int handle);
     void run() override;
 private:
     int m_descriptor;

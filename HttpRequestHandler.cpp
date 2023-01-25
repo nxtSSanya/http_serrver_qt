@@ -8,7 +8,7 @@ QRegExp http_pay_ticket_regex("/tickets/pay/\\d{8}");
 HttpRequestHandler::HttpRequestHandler(QString request_data_in)
 {
     HttpParser hParser(request_data_in);
-    db = new Database();
+    m_db = new Database();
 
     m_ticket_id = hParser.getTicketId();
     m_url_addr = hParser.getHttpPageRequest();
@@ -39,7 +39,7 @@ void HttpRequestHandler::makeResponse(){
         http_code = "400 ERROR";
     }
 
-
+    std::cout << m_db->getDoneInfo() << "\n";
     QString http_resp_ok = "HTTP/1.1 " + http_code + "\r\n"
                        "Content-Type: application/json; charset=utf-8 \r\n\r\n"
                        + json_response;
@@ -50,28 +50,28 @@ void HttpRequestHandler::makeResponse(){
 
 QString HttpRequestHandler::getIdOfTickets(){
     JsonFormatter jff;
-    auto json_formatted = jff.JsonGetIdOfTickets(db->getIdOfTickets());
+    auto json_formatted = jff.JsonGetIdOfTickets(m_db->getIdOfTickets());
 
     return json_formatted;
 }
 
 QString HttpRequestHandler::getStatusById(QString ticket_id){
     JsonFormatter jff;
-    auto json_formatted = jff.JsonGetStatusById(db->findTicketById(ticket_id));
+    auto json_formatted = jff.JsonGetStatusById(m_db->findTicketById(ticket_id));
 
     return json_formatted;
 }
 
 QString HttpRequestHandler::payForTicket(QString ticket_id){
     JsonFormatter jff;
-    auto json_formatted = jff.JsonPayForTicket(db->payForTicket(ticket_id));
+    auto json_formatted = jff.JsonPayForTicket(m_db->payForTicket(ticket_id));
 
     return json_formatted;
 }
 
 QString HttpRequestHandler::sellTicket(QString ticket_id){
     JsonFormatter jff;
-    auto json_formatted = jff.JsonSellTicket(db->sellTicket(ticket_id));
+    auto json_formatted = jff.JsonSellTicket(m_db->sellTicket(ticket_id));
 
     return json_formatted;
 }
@@ -82,6 +82,6 @@ QString HttpRequestHandler::getHttpResponse(){
 
 HttpRequestHandler::~HttpRequestHandler()
 {
-    db->~Database();
+    m_db->~Database();
 }
 

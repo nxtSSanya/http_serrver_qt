@@ -3,13 +3,14 @@
 
 Database::Database()
 {
-    m_db = QSqlDatabase::addDatabase("QMYSQL"); // QMYSQL = MARIADB
+    m_isQueryDone = false;
+    m_db = QSqlDatabase::addDatabase("QSQLITE"); // QMYSQL = MARIADB
     m_db.setDatabaseName("./qwe.db");
     if(m_db.open()){
-        qDebug() << "Opened successfully";
+        std::cout << "Opened successfully";
     }
     else{
-        qDebug() << "Error while opening";
+        std::cout << "Error while opening";
     }
 }
 
@@ -18,13 +19,16 @@ Database::Database(Database &other)
     m_db = other.m_db;
     m_query = other.m_query;
     m_error = other.m_error;
+    m_isQueryDone = other.m_isQueryDone;
 }
 
 bool Database::processQuery(QString query)
 {
+    std::cout<<m_isQueryDone<<"\n";
+    m_isQueryDone = false;
     m_query = std::make_shared<QSqlQuery>(m_db);
     if(m_query->exec(query)){
-        std::cout << "OK\n";
+        m_isQueryDone = true;
         return true;
     }
     else {
@@ -40,6 +44,11 @@ QString Database::error()
     return m_error;
 }
 
+bool Database::getDoneInfo()
+{
+    return m_isQueryDone;
+}
+
 std::vector<QString> Database::getIdOfTickets()
 {
     std::vector<QString> id_values;
@@ -52,8 +61,10 @@ std::vector<QString> Database::getIdOfTickets()
 
 std::pair<QString, QString> Database::findTicketById(QString ticket_id)
 {
+    m_isQueryDone = false;
     std::pair<QString, QString> ticketID_status;
     processQuery("select ticket_id, ticket_status from TICKETS where ticket_id = \"" + ticket_id + "\";");
+
     while(m_query->next()){
         ticketID_status.first = m_query->value(0).toString();
         ticketID_status.second = m_query->value(1).toString();

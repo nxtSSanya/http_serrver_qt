@@ -21,7 +21,7 @@ private:
     QString m_ticket_id;
     QString m_request_type;
 
-    Database* db;
+    Database* m_db;
     QString m_http_response;
 
     QString getStatusById(QString ticket_id);

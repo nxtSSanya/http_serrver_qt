@@ -10,7 +10,9 @@ class QThreadPoolServer : public QTcpServer
 public:
     explicit QThreadPoolServer();
 
-    void incomingConnection(int handle) override;
+    void incomingConnection(int handle);
+
+    ~QThreadPoolServer();
 private:
     std::shared_ptr<QThreadPool> m_threadPool;
 };
