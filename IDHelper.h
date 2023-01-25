@@ -9,7 +9,7 @@
 
 
 namespace IDhelper {
-    inline QString checkFormatID(QString ticket_id) {
+    inline QString checkFormatID(const QString& ticket_id) {
         bool is_letter_found = false;
         if(ticket_id.size() != ServerConfig::ticket_id_size){
             return "invalid id found with size " + QString::number(ticket_id.size()) + " when " + ServerConfig::ticket_id_size + " need";
@@ -26,7 +26,7 @@ namespace IDhelper {
         return "OK";
     }
 
-    inline QString getIDTicket(QString url)
+    inline QString getIDTicket(const QString& url)
     {
         QRegExp split_url_by_slash("/");
         QStringList splittedString = url.split(split_url_by_slash);
