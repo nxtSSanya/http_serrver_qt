@@ -12,7 +12,7 @@
 class HttpRequestHandler
 {
 public:
-    HttpRequestHandler(QString request_data_in);
+    HttpRequestHandler(const QString& request_data_in);
     void makeResponse();
     QString getHttpResponse();
     ~HttpRequestHandler();
@@ -24,9 +24,9 @@ private:
     Database* m_db;
     QString m_http_response;
 
-    QString getStatusById(QString ticket_id);
-    QString payForTicket(QString ticket_id);
-    QString sellTicket(QString ticket_id);
+    QString getStatusById(const QString& ticket_id);
+    QString payForTicket(const QString& ticket_id);
+    QString sellTicket(const QString& ticket_id);
     QString getIdOfTickets();
 };
 

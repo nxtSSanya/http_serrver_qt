@@ -22,7 +22,7 @@ Database::Database(Database &other)
     m_isQueryDone = other.m_isQueryDone;
 }
 
-bool Database::processQuery(QString query)
+bool Database::processQuery(const QString& query)
 {
     std::cout<<m_isQueryDone<<"\n";
     m_isQueryDone = false;
@@ -59,7 +59,7 @@ std::vector<QString> Database::getIdOfTickets()
     return id_values;
 }
 
-std::pair<QString, QString> Database::findTicketById(QString ticket_id)
+std::pair<QString, QString> Database::findTicketById(const QString& ticket_id)
 {
     m_isQueryDone = false;
     std::pair<QString, QString> ticketID_status;
@@ -72,7 +72,7 @@ std::pair<QString, QString> Database::findTicketById(QString ticket_id)
     return ticketID_status;
 }
 
-std::pair<QString, QString> Database::sellTicket(QString ticket_id)
+std::pair<QString, QString> Database::sellTicket(const QString& ticket_id)
 {
     std::pair<QString, QString> result_id_status = findTicketById(ticket_id);
 
@@ -85,7 +85,7 @@ std::pair<QString, QString> Database::sellTicket(QString ticket_id)
     return result_id_status;
 }
 
-std::pair<QString, QString> Database::payForTicket(QString ticket_id)
+std::pair<QString, QString> Database::payForTicket(const QString& ticket_id)
 {
     std::pair<QString, QString> result_id_winsize = findTicketById(ticket_id);
 

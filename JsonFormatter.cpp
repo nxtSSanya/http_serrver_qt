@@ -6,7 +6,7 @@ JsonFormatter::JsonFormatter()
 }
 
 
-QString JsonFormatter::JsonGetIdOfTickets(std::vector<QString> tickets_list)
+QString JsonFormatter::JsonGetIdOfTickets(const std::vector<QString>& tickets_list)
 {
     QJsonObject jsonItem;
     QJsonArray jsonIdArray;
@@ -22,7 +22,7 @@ QString JsonFormatter::JsonGetIdOfTickets(std::vector<QString> tickets_list)
     return jsonId_string;
 }
 
-QString JsonFormatter::JsonGetStatusById(std::pair<QString, QString> ticket_status)
+QString JsonFormatter::JsonGetStatusById(const std::pair<QString, QString>& ticket_status)
 {
     QJsonObject jsonItem;
 
@@ -41,7 +41,7 @@ QString JsonFormatter::JsonGetStatusById(std::pair<QString, QString> ticket_stat
     return jsonTicketInfo_string;
 }
 
-QString JsonFormatter::JsonSellTicket(std::pair<QString, QString> ticket_status)
+QString JsonFormatter::JsonSellTicket(const std::pair<QString, QString>& ticket_status)
 {
     QJsonObject jsonItem;
 
@@ -64,7 +64,7 @@ QString JsonFormatter::JsonSellTicket(std::pair<QString, QString> ticket_status)
     return jsonSellStatus_string;
 }
 
-QString JsonFormatter::JsonPayForTicket(std::pair<QString, QString> ticket_status)
+QString JsonFormatter::JsonPayForTicket(const std::pair<QString, QString>& ticket_status)
 {
     QJsonObject jsonItem;
 
@@ -88,7 +88,7 @@ QString JsonFormatter::JsonPayForTicket(std::pair<QString, QString> ticket_statu
     return jsonPayStatus_string;
 }
 
-QString JsonFormatter::JsonProcessError(QString ticket_id){
+QString JsonFormatter::JsonProcessError(const QString& ticket_id){
     QJsonObject jsonItem;
     QString error_message = IDhelper::checkFormatID(ticket_id);
     jsonItem["code"] = "405";

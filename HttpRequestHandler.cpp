@@ -5,7 +5,7 @@ QRegExp http_find_ticket_regex("/tickets/\\d{8}");
 QRegExp http_sell_ticket_regex("/tickets/sell/\\d{8}");
 QRegExp http_pay_ticket_regex("/tickets/pay/\\d{8}");
 
-HttpRequestHandler::HttpRequestHandler(QString request_data_in)
+HttpRequestHandler::HttpRequestHandler(const QString& request_data_in)
 {
     HttpParser hParser(request_data_in);
     m_db = new Database();
@@ -55,21 +55,21 @@ QString HttpRequestHandler::getIdOfTickets(){
     return json_formatted;
 }
 
-QString HttpRequestHandler::getStatusById(QString ticket_id){
+QString HttpRequestHandler::getStatusById(const QString& ticket_id){
     JsonFormatter jff;
     auto json_formatted = jff.JsonGetStatusById(m_db->findTicketById(ticket_id));
 
     return json_formatted;
 }
 
-QString HttpRequestHandler::payForTicket(QString ticket_id){
+QString HttpRequestHandler::payForTicket(const QString& ticket_id){
     JsonFormatter jff;
     auto json_formatted = jff.JsonPayForTicket(m_db->payForTicket(ticket_id));
 
     return json_formatted;
 }
 
-QString HttpRequestHandler::sellTicket(QString ticket_id){
+QString HttpRequestHandler::sellTicket(const QString& ticket_id){
     JsonFormatter jff;
     auto json_formatted = jff.JsonSellTicket(m_db->sellTicket(ticket_id));
 

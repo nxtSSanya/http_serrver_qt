@@ -15,11 +15,11 @@ class JsonFormatter
 {
 public:
     JsonFormatter();
-    QString JsonGetIdOfTickets(std::vector<QString> tickets_list);
-    QString JsonGetStatusById(std::pair<QString, QString> ticket_status);
-    QString JsonSellTicket(std::pair<QString, QString> ticket_status);
-    QString JsonPayForTicket(std::pair<QString, QString> ticket_status);
-    QString JsonProcessError(QString ticket_id);
+    QString JsonGetIdOfTickets(const std::vector<QString>& tickets_list);
+    QString JsonGetStatusById(const std::pair<QString, QString>& ticket_status);
+    QString JsonSellTicket(const std::pair<QString, QString>& ticket_status);
+    QString JsonPayForTicket(const std::pair<QString, QString>& ticket_status);
+    QString JsonProcessError(const QString& ticket_id);
 };
 
 #endif // JSONFORMATTER_H

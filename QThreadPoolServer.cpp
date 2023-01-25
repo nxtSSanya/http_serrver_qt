@@ -15,7 +15,6 @@ QThreadPoolServer::QThreadPoolServer()
 void QThreadPoolServer::incomingConnection(int handle)
 {
     std::shared_ptr<QSocketRunnable> runnable = std::make_shared<QSocketRunnable>(handle);
-    //QSocketRunnable* runnable = new QSocketRunnable(handle);
     runnable->setAutoDelete(false);
     m_threadPool->start(runnable.get());
 }
