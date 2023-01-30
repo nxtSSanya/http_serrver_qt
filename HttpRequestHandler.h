@@ -22,6 +22,7 @@ private:
     QString m_request_type;
 
     Database* m_db;
+    JsonFormatter m_jf;
     QString m_http_response;
 
     QString getStatusById(const QString& ticket_id);

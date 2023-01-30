@@ -7,10 +7,10 @@ Database::Database()
     m_db = QSqlDatabase::addDatabase("QSQLITE"); // QMYSQL = MARIADB
     m_db.setDatabaseName("./qwe.db");
     if(m_db.open()){
-        std::cout << "Opened successfully";
+        std::cout << "Opened successfully\n";
     }
     else{
-        std::cout << "Error while opening";
+        std::cout << "Error while opening\n";
     }
 }
 
@@ -24,7 +24,6 @@ Database::Database(Database &other)
 
 bool Database::processQuery(const QString& query)
 {
-    std::cout<<m_isQueryDone<<"\n";
     m_isQueryDone = false;
     m_query = std::make_shared<QSqlQuery>(m_db);
     if(m_query->exec(query)){
@@ -90,10 +89,12 @@ std::pair<QString, QString> Database::payForTicket(const QString& ticket_id)
     std::pair<QString, QString> result_id_winsize = findTicketById(ticket_id);
 
     if(result_id_winsize.second == "sold"){
-        if(processQuery("START TRANSACTION; \
-                        update TICKETS set ticket_status = \"paid\" where ticket_id = \"" + ticket_id + "\"; \
-                        select win_size from TICKETS where ticket_id = " + ticket_id + "; \
-                        COMMIT;"))
+//        if(processQuery("START TRANSACTION; \
+//                        update TICKETS set ticket_status = \"paid\" where ticket_id = \"" + ticket_id + "\"; \
+//                        select win_size from TICKETS where ticket_id = " + ticket_id + "; \
+//                        COMMIT;"))
+        if(processQuery("update TICKETS set ticket_status = \"paid\" where ticket_id = \"" + ticket_id + "\";") &&
+               processQuery("select win_size from TICKETS where ticket_id = \"" + ticket_id + "\";"))
         {
             m_query->first();
             result_id_winsize.first = ticket_id;

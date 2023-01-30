@@ -3,10 +3,12 @@
 #include "Database.h"
 #include "SignalHandlers.h"
 #include "signal.h"
+#include "ConfigReader.h"
 
 int main(int argc, char *argv[])
 {
     QCoreApplication a(argc, argv);
+
     QThreadPoolServer server;
     SignalHandlers::catchUnixSignals({SIGINT, SIGTERM});
 

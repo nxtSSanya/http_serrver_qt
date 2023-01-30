@@ -15,6 +15,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+        ConfigReader.cpp \
         Database.cpp \
         HttpParser.cpp \
         HttpRequestHandler.cpp \
@@ -23,13 +24,8 @@ SOURCES += \
         QThreadPoolServer.cpp \
         main.cpp
 
-# Default rules for deployment.
-qnx: target.path = /tmp/$${TARGET}/bin
-else: unix:!android: target.path = /opt/$${TARGET}/bin
-!isEmpty(target.path): INSTALLS += target
-
 HEADERS += \
-    Config.h \
+    ConfigReader.h \
     Database.h \
     HttpParser.h \
     HttpRequestHandler.h \
@@ -37,4 +33,8 @@ HEADERS += \
     JsonFormatter.h \
     QSocketRunnable.h \
     QThreadPoolServer.h \
-    SignalHandlers.h
+    SignalHandlers.h \
+
+DISTFILES += \
+    server_config.txt
+

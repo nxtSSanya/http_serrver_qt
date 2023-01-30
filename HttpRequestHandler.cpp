@@ -49,29 +49,26 @@ void HttpRequestHandler::makeResponse(){
 }
 
 QString HttpRequestHandler::getIdOfTickets(){
-    JsonFormatter jff;
-    auto json_formatted = jff.JsonGetIdOfTickets(m_db->getIdOfTickets());
+
+    auto json_formatted = m_jf.JsonGetIdOfTickets(m_db->getIdOfTickets());
 
     return json_formatted;
 }
 
 QString HttpRequestHandler::getStatusById(const QString& ticket_id){
-    JsonFormatter jff;
-    auto json_formatted = jff.JsonGetStatusById(m_db->findTicketById(ticket_id));
+    auto json_formatted = m_jf.JsonGetStatusById(m_db->findTicketById(ticket_id));
 
     return json_formatted;
 }
 
 QString HttpRequestHandler::payForTicket(const QString& ticket_id){
-    JsonFormatter jff;
-    auto json_formatted = jff.JsonPayForTicket(m_db->payForTicket(ticket_id));
+    auto json_formatted = m_jf.JsonPayForTicket(m_db->payForTicket(ticket_id));
 
     return json_formatted;
 }
 
 QString HttpRequestHandler::sellTicket(const QString& ticket_id){
-    JsonFormatter jff;
-    auto json_formatted = jff.JsonSellTicket(m_db->sellTicket(ticket_id));
+    auto json_formatted = m_jf.JsonSellTicket(m_db->sellTicket(ticket_id));
 
     return json_formatted;
 }

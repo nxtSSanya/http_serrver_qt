@@ -1,14 +1,15 @@
 #include "QThreadPoolServer.h"
 #include "QSocketRunnable.h"
-#include "Config.h"
+#include "ConfigReader.h"
 #include <memory>
-
-
-QHostAddress server_IP(ServerConfig::server_ip_address);
 
 QThreadPoolServer::QThreadPoolServer()
 {
-    listen(server_IP, ServerConfig::server_port);
+    ConfigReader reader;
+    QHostAddress server_IP(reader.getServerAddress());
+    int port = reader.getServerPort();
+
+    listen(server_IP, port);
     m_threadPool = std::make_shared<QThreadPool>(this);
 }
 
