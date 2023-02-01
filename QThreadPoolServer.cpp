@@ -5,7 +5,7 @@
 
 QThreadPoolServer::QThreadPoolServer()
 {
-    ConfigReader reader;
+    ConfigReader reader(config_file_path);
     QHostAddress server_IP(reader.getServerAddress());
     int port = reader.getServerPort();
 

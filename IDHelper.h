@@ -11,7 +11,7 @@
 namespace IDhelper {
     inline QString checkFormatID(const QString& ticket_id) {
 
-        ConfigReader reader;
+        ConfigReader reader(config_file_path);
         int ticket_size = reader.getServerTicketSize();
 
         bool is_letter_found = false;

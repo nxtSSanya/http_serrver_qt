@@ -5,12 +5,15 @@
 #include <QString>
 #include <QRegExp>
 #include <QStringList>
+#include <unordered_map>
 
 #include <iostream>
 
+extern QString config_file_path;
+
 class ConfigReader{
 public:
-    ConfigReader();
+    ConfigReader(const QString& file_name);
     QString getServerAddress();
     int getServerPort();
     int getServerTicketSize();

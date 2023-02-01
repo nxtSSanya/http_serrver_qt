@@ -12,7 +12,7 @@ namespace SignalHandlers{
     void catchUnixSignals(const std::vector<int>& quitSignals) {
 
         auto handler = [](int sig) -> void {
-            std::cout << "Quit the application (user request signal = " + std::to_string(sig) + "\n";
+            std::cout << "Quit the application (user request signal = " + std::to_string(sig) + ")\n";
             sig_value = sig;
         };
 
