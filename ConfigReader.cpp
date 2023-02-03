@@ -17,14 +17,30 @@ ConfigReader::ConfigReader(const QString& file_name)
             QStringList splitted = line.split(regex);
 
             if(splitted.first() == address_config_field_name) {
-                m_server_addr = splitted.at(1);
+                if(splitted.at(1).isEmpty()) {
+                    m_error = "Some fields are empty\n";
+                }
+                else {
+                    m_server_addr = splitted.at(1);
+                }
             }
             if(splitted.first() == port_config_field_name) {
-                m_server_port = splitted.at(1).toInt();
+                if(splitted.at(1).isEmpty()) {
+                    m_error = "Some fields are empty\n";
+                }
+                else {
+                    m_server_port = splitted.at(1).toInt();
+                }
             }
             if(splitted.first() == ticket_size_config_field_name) {
-                m_server_ticket_id_size = splitted.at(1).toInt();
+                if(splitted.at(1).isEmpty()) {
+                    m_error = "Some fields are empty\n";
+                }
+                else {
+                    m_server_ticket_id_size = splitted.at(1).toInt();
+                }
             }
+
         };
 
         input_file.close();
@@ -49,4 +65,9 @@ int ConfigReader::getServerPort()
 int ConfigReader::getServerTicketSize()
 {
     return m_server_ticket_id_size;
+}
+
+QString ConfigReader::error()
+{
+    return m_error;
 }

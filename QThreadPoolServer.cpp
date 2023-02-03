@@ -6,6 +6,11 @@
 QThreadPoolServer::QThreadPoolServer()
 {
     ConfigReader reader(config_file_path);
+    if(!reader.error().isEmpty()) {
+        std::cout << reader.error().toStdString() << "\n";
+        std::cout << "Server starting by default in address: " << reader.getServerAddress().toStdString() << ":" << reader.getServerPort() << "\n";
+        std::cout << "Ticket size is: " << reader.getServerTicketSize() << "\n";
+    }
     QHostAddress server_IP(reader.getServerAddress());
     int port = reader.getServerPort();
 

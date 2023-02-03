@@ -12,6 +12,10 @@ namespace IDhelper {
     inline QString checkFormatID(const QString& ticket_id) {
 
         ConfigReader reader(config_file_path);
+        if(!reader.error().isEmpty()) {
+            std::cout << reader.error().toStdString() << "\n";
+            std::cout << "ticket id by defaul: " << reader.getServerTicketSize() << "\n";
+        }
         int ticket_size = reader.getServerTicketSize();
 
         bool is_letter_found = false;

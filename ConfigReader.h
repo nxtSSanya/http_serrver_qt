@@ -17,10 +17,12 @@ public:
     QString getServerAddress();
     int getServerPort();
     int getServerTicketSize();
+    QString error();
 private:
     QString m_server_addr = "127.0.0.1";
     int m_server_port = 8080;
     int m_server_ticket_id_size = 8;
+    QString m_error = "";
 };
 
 
