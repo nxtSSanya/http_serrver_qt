@@ -8,7 +8,9 @@ QRegExp http_pay_ticket_regex("/tickets/pay/\\d{8}");
 HttpRequestHandler::HttpRequestHandler(const QString& request_data_in)
 {
     HttpParser hParser(request_data_in);
-    m_db = new Database();
+    ConfigReader cfg(config_file_path);
+    std::cout << cfg.getHostName().toStdString() << cfg.getDbName().toStdString() << cfg.getUsername().toStdString() << cfg.getPassword().toStdString();
+    m_db = new Database(cfg.getHostName(), cfg.getDbName(), cfg.getUsername(), cfg.getPassword());
 
     m_ticket_id = hParser.getTicketId();
     m_url_addr = hParser.getHttpPageRequest();

@@ -1,6 +1,7 @@
 #include "QSocketRunnable.h"
 #include <QString>
 #include <memory>
+#include <iostream>
 
 
 QSocketRunnable::QSocketRunnable(int handle) : m_descriptor(handle) { }
@@ -16,6 +17,7 @@ void QSocketRunnable::run()
     handler.makeResponse();
 
     QString http_response_result = handler.getHttpResponse();
+    std::cout << http_response_result.toStdString() << "\n";
     socket->write(http_response_result.toUtf8());
     socket->waitForBytesWritten(90000);
 

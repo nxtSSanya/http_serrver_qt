@@ -11,7 +11,7 @@
 class Database
 {
 public:
-    Database();
+    Database(QString hostname, QString db_name, QString username, QString password);
     Database(Database& other);
 
     QString error();

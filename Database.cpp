@@ -1,12 +1,15 @@
 #include "Database.h"
 #include "QSqlError"
 
-Database::Database()
+Database::Database(QString hostname, QString db_name, QString username, QString password)
 {
     m_isQueryDone = false;
     m_db = QSqlDatabase::addDatabase("QSQLITE"); // QMYSQL = MARIADB
-    m_db.setDatabaseName("./qwe.db");
-    if(m_db.open()){
+    m_db.setHostName(hostname);
+    m_db.setDatabaseName(db_name);
+    m_db.setUserName(username);
+    m_db.setPassword(password);
+    if(m_db.open()) {
         std::cout << "Opened successfully\n";
     }
     else{
@@ -26,7 +29,7 @@ bool Database::processQuery(const QString& query)
 {
     m_isQueryDone = false;
     m_query = std::make_shared<QSqlQuery>(m_db);
-    if(m_query->exec(query)){
+    if(m_query->exec(query)) {
         m_isQueryDone = true;
         return true;
     }

@@ -1,0 +1,7 @@
+server_ip_address: 127.0.0.1
+server_port: 8080
+ticket_id_size: 8
+db_name: ./qwe.db
+db_hostname: root
+db_username: admin
+db_password: admin

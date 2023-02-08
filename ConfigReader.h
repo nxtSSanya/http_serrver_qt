@@ -17,11 +17,20 @@ public:
     QString getServerAddress();
     int getServerPort();
     int getServerTicketSize();
+    QString getDbName();
+    QString getHostName();
+    QString getUsername();
+    QString getPassword();
     QString error();
 private:
     QString m_server_addr = "127.0.0.1";
     int m_server_port = 8080;
     int m_server_ticket_id_size = 8;
+    QString m_database_name = "";
+    QString m_db_host_name = "";
+    QString m_db_username = "";
+    QString m_db_password = "";
+
     QString m_error = "";
 };
 
